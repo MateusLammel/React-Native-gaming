@@ -1,0 +1,19 @@
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+  container: {
+      width: 55,
+      height: 55,
+      borderRadius: 8,
+      alignItems: "center",
+      justifyContent: "center",
+      marginRight: 22
+  },
+  avatar: {
+      width: 52,
+      height: 52,
+      borderRadius: 8,
+  }
+
+  
+});
