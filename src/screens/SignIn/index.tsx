@@ -35,7 +35,7 @@ const SignIn = () => {
             Crie grupos para jogar seus games {`\n`} favoritos com seus amigos
           </Text>
 
-          <ButtonIcon onPress={handleSingIn} />
+          <ButtonIcon title="Entrar com Discord" onPress={handleSingIn} />
         </View>
       </View>
     </Background>

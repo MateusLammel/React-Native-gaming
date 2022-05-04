@@ -1,6 +1,6 @@
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, Alert } from "react-native";
 import Appointment from "../../components/Appointment";
 import Background from "../../components/Background";
 
@@ -44,10 +44,12 @@ const Home = () => {
     },
   ];
 
-  function handleAppointmentDetails(){
+  function handleAppointmentDetails() {
     navigation.dispatch(CommonActions.navigate({ name: "AppointmentDetails" }));
-
-  };
+  }
+  function handleAppointmentCreate() {
+    navigation.dispatch(CommonActions.navigate({ name: "AppointmentCreate" }));
+  }
 
   function handleCategorySelect(categoryId: string) {
     categoryId === category ? setCategory("") : setCategory(categoryId);
@@ -57,7 +59,7 @@ const Home = () => {
     <Background>
       <View style={styles.header}>
         <Profile />
-        <ButtonAdd />
+        <ButtonAdd onPress={handleAppointmentCreate} />
       </View>
       <CategorySelect
         categorySelected={category}
@@ -69,10 +71,9 @@ const Home = () => {
         <FlatList
           data={appointments}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Appointment 
-          
-          onPress={handleAppointmentDetails}
-          data={item} />}
+          renderItem={({ item }) => (
+            <Appointment onPress={handleAppointmentDetails} data={item} />
+          )}
           style={styles.matches}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={() => <ListDivider />}
@@ -80,6 +81,6 @@ const Home = () => {
       </View>
     </Background>
   );
-};
+};;
 
 export default Home;

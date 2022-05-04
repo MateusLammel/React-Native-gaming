@@ -6,7 +6,8 @@ import { styles } from "./styles";
 
 
 interface Props {
-  onPress: (event: GestureResponderEvent) => void;
+  onPress?: (event: GestureResponderEvent) => void;
+  title: string,
 }
 
 const ButtonIcon = (props: Props) => {
@@ -15,7 +16,7 @@ const ButtonIcon = (props: Props) => {
       <View style={styles.iconWrapper}>
         <Image source={DiscordImg} style={styles.icon} />
       </View>
-      <Text style={styles.title}>Entrar com Discord</Text>
+      <Text style={styles.title}>{props.title}</Text>
     </TouchableOpacity>
   );
 };

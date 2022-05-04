@@ -1,6 +1,6 @@
 import { style } from "@mui/system";
 import React from "react";
-import { Text, View } from "react-native";
+import { Alert, GestureResponderEvent, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { RectButton, RectButtonProps } from "react-native-gesture-handler";
 import GuildIcon from "../GuildIcon";
@@ -12,6 +12,7 @@ import { theme } from "../../global/styles/theme";
 
 type Props = RectButtonProps & {
   data: AppointmentProps;
+  onPress: (event: GestureResponderEvent) => void;
 };
 
 export type GuildProps = {
@@ -29,11 +30,13 @@ export type AppointmentProps = {
   description: string;
 };
 
-const Appointment = ({ data, ...rest }: Props) => {
+
+
+const Appointment = ({ data, onPress }: Props) => {
   const [category] = categories.filter((item) => item.id === data.category);
 
   return (
-    <RectButton style={styles.container} {...rest}>
+    <TouchableOpacity style={styles.container} activeOpacity={0.8}  onPress={onPress}>
       <View style={styles.container}>
         <GuildIcon />
         <View style={styles.content}>
@@ -68,7 +71,7 @@ const Appointment = ({ data, ...rest }: Props) => {
           </View>
         </View>
       </View>
-    </RectButton>
+    </TouchableOpacity>
   );
 };
 
