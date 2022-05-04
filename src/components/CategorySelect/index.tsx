@@ -10,7 +10,10 @@ type Props = {
   setCategory: (categoryId: string) => void;
 };
 
+
 const CategorySelect = ({ categorySelected, setCategory }: Props) => {
+
+  
   return (
     <ScrollView
       horizontal
@@ -18,15 +21,15 @@ const CategorySelect = ({ categorySelected, setCategory }: Props) => {
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{ paddingRight: 40 }}
     >
-      {categories.map((category) => {
+      {categories.map((category) => (
         <Category
           key={category.id}
           icon={category.icon}
           title={category.title}
           checked={category.id === categorySelected}
-          onPress={()=>setCategory(category.id)}
-        />;
-      })}
+          onPress={() => setCategory(category.id)}
+        />
+      ))}
     </ScrollView>
   );
 };

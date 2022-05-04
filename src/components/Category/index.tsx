@@ -19,11 +19,17 @@ const Category = ({ title, icon: Icon, checked = false, ...rest }: Props) => {
         style={styles.container}
         colors={[theme.colors.secondary50, theme.colors.secondary70]}
       >
-        <View style={[styles.content, { opacity: checked ? 1 : 0.5 }]}>
+        <LinearGradient
+          style={[styles.content, { opacity: checked ? 1 : 0.5 }]}
+          colors={[
+            checked ? theme.colors.secondary85 : theme.colors.secondary50,
+            theme.colors.secondary40,
+          ]}
+        >
           <View style={checked ? styles.checked : styles.check} />
           <Icon width={48} height={48} />
           <Text style={styles.title}>{title}</Text>
-        </View>
+        </LinearGradient>
       </LinearGradient>
     </RectButton>
   );
