@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     color: theme.colors.reading,
     fontSize: 15,
     textAlign: "center",
-    fontFamily: theme.fonts.text500,
+    fontFamily: theme.fonts.text500
   },
   iconWrapper: {
     width: 56,

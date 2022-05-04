@@ -24,17 +24,44 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: "center",
     paddingRight: 25,
+    overflow: "hidden",
   },
   selectBody: {
     flex: 1,
     alignItems: "center",
   },
 
-  image:{
+  image: {
     width: 64,
     height: 68,
     backgroundColor: theme.colors.secondary50,
     borderWidth: 1,
-    borderRadius: 8
+    borderRadius: 8,
+  },
+  field: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 30,
+  },
+  column: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  divider: {
+    marginRight: 4,
+    fontSize: 18,
+    fontFamily: theme.fonts.text500,
+    color: theme.colors.highlight,
+  },
+  caracteresLimit:{
+    fontSize: 13,
+    fontFamily: theme.fonts.text400,
+    color: theme.colors.highlight
+  },
+  footer:{
+ 
+    marginVertical: 20,
+    marginBottom: 56
   }
 });
