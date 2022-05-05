@@ -65,20 +65,20 @@ const Home = () => {
         categorySelected={category}
         setCategory={handleCategorySelect}
       />
-      <View style={styles.content}>
+      
         <ListHeader title="Partidas agendadas" subtitle="Total 6" />
-
-        <FlatList
-          data={appointments}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <Appointment onPress={handleAppointmentDetails} data={item} />
-          )}
-          style={styles.matches}
-          showsVerticalScrollIndicator={false}
-          ItemSeparatorComponent={() => <ListDivider />}
-        />
-      </View>
+   
+      <FlatList
+        data={appointments}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Appointment onPress={handleAppointmentDetails} data={item} />
+        )}
+        style={styles.matches}
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={() => <ListDivider />}
+        contentContainerStyle={{paddingBottom: 40}}
+      />
     </Background>
   );
 };;

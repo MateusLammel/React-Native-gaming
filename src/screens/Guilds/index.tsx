@@ -11,14 +11,18 @@ import { FlatList } from "react-native-gesture-handler";
 import Member from "../../components/Member";
 import ListDivider from "../../components/ListDivider";
 import ButtonIcon from "../../components/ButtonIcon";
-import Guild from "../../components/Guild";
+import Guild, { GuildProps } from "../../components/Guild";
 
-const AppointmentDetails = () => {
+type Props = {
+  handleGuildSelected: (guild: GuildProps) => void;
+};
+
+const Guilds = ({ handleGuildSelected }: Props) => {
   const guilds = [
     {
       id: "1",
       name: "Mateus",
-      icon: null,
+      icon: "image.png",
       owner: true,
     },
   ];
@@ -28,13 +32,17 @@ const AppointmentDetails = () => {
       <FlatList
         data={guilds}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <Guild data={item} />}
+        renderItem={({ item }) => (
+          <Guild data={item} onPress={() => handleGuildSelected(item)} />
+        )}
         showsVerticalScrollIndicator={false}
-        ItemSeparatorComponent={() => <ListDivider/>}
+        ItemSeparatorComponent={() => <ListDivider />}
         style={styles.guilds}
+        contentContainerStyle={{ paddingBottom: 50, paddingTop: 50 }}
+        ListHeaderComponent={()=> <ListDivider/>}
       />
     </View>
   );
 };
 
-export default AppointmentDetails;
+export default Guilds;

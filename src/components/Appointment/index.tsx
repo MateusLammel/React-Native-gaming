@@ -9,18 +9,14 @@ import PlayerSvg from "../../assets/player.svg";
 import CalendarSvg from "../../assets/calendar.svg";
 
 import { theme } from "../../global/styles/theme";
+import { GuildProps } from "../Guild";
 
 type Props = RectButtonProps & {
   data: AppointmentProps;
   onPress: (event: GestureResponderEvent) => void;
 };
 
-export type GuildProps = {
-  id: string;
-  name: string;
-  icon: null;
-  owner: boolean;
-};
+
 
 export type AppointmentProps = {
   id: string;

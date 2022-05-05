@@ -9,6 +9,6 @@ export const styles = StyleSheet.create({
     paddingTop: 24
   },
  guilds:{
-     width: "100%"
+     width: "100%",
  }
 });

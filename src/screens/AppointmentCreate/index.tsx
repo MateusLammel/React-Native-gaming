@@ -19,9 +19,28 @@ import { Feather } from "@expo/vector-icons";
 import SmallInput from "../../components/SmallInput";
 import TextArea from "../../components/TextArea";
 import Button from "../../components/Button";
+import ModalView from "../../components/ModalView";
+import Guilds from "../Guilds";
+import { GuildProps } from "../../components/Guild";
+import GuildIcon from "../../components/GuildIcon";
 
 const AppointmentCreate = () => {
   const [category, setCategory] = React.useState("");
+  const [openGuildsModal, setOpenGuildsModal] = React.useState<boolean>(false);
+  const [guild, setGuild] = React.useState<GuildProps>({} as GuildProps);
+
+  function handleOpenGuilds() {
+    setOpenGuildsModal(true);
+  }
+
+   function handleCloseGuilds() {
+     setOpenGuildsModal(false);
+   }
+
+  function handleGuildSelect(guildSelect: GuildProps) {
+    setGuild(guildSelect);
+    setOpenGuildsModal(false);
+  }
 
   return (
     <KeyboardAvoidingView
@@ -48,18 +67,22 @@ const AppointmentCreate = () => {
           />
 
           <View style={styles.form}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleOpenGuilds}>
               <View style={styles.select}>
-                <View style={styles.image} />
+                {guild.icon ? <GuildIcon /> : <View style={styles.image} />}
                 <View style={styles.selectBody}>
-                  <Text style={styles.label}>Selecione o servidor</Text>
+                  <Text style={styles.label}>
+                    {guild.name ? guild.name : "Selecione um servidor"}
+                  </Text>
                 </View>
               </View>
             </TouchableOpacity>
 
             <View style={styles.field}>
               <View>
-                <Text style={styles.label}>Dia e mês</Text>
+                <Text style={[styles.label, { marginBottom: 12 }]}>
+                  Dia e mês
+                </Text>
 
                 <View style={styles.column}>
                   <SmallInput maxLength={2} />
@@ -69,7 +92,9 @@ const AppointmentCreate = () => {
               </View>
 
               <View>
-                <Text style={styles.label}>Hora e minuto</Text>
+                <Text style={[styles.label, { marginBottom: 12 }]}>
+                  Hora e minuto
+                </Text>
 
                 <View style={styles.column}>
                   <SmallInput maxLength={2} />
@@ -80,7 +105,9 @@ const AppointmentCreate = () => {
             </View>
 
             <View style={[styles.field, { marginBottom: 12 }]}>
-              <Text style={styles.label}>Descrição</Text>
+              <Text style={styles.label}>
+                Descrição
+              </Text>
               <Text style={styles.caracteresLimit}>Max de 100 caracteres</Text>
             </View>
             <TextArea
@@ -97,7 +124,9 @@ const AppointmentCreate = () => {
         </Background>
       </ScrollView>
 
-     
+      <ModalView visible={openGuildsModal} closeModal={handleCloseGuilds}>
+        <Guilds handleGuildSelected={handleGuildSelect} />
+      </ModalView>
     </KeyboardAvoidingView>
   );
 };
