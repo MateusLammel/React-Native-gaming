@@ -17,7 +17,6 @@ const AuthRoutes = () => {
         contentStyle: { backgroundColor: theme.colors.secondary100 },
       }}
     >
-      <Screen name="SignIn" component={SignIn} />
       <Screen name="Home" component={Home} />
       <Screen name="AppointmentDetails" component={AppointmentDetails} />
       <Screen name="AppointmentCreate" component={AppointmentCreate} />

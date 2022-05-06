@@ -12,35 +12,47 @@ import Member from "../../components/Member";
 import ListDivider from "../../components/ListDivider";
 import ButtonIcon from "../../components/ButtonIcon";
 import Guild, { GuildProps } from "../../components/Guild";
+import { useEffect } from "react";
+import { api } from "../../services/api";
+import { useState } from "react";
+import { Load } from "../../components/Load";
 
 type Props = {
   handleGuildSelected: (guild: GuildProps) => void;
 };
 
 const Guilds = ({ handleGuildSelected }: Props) => {
-  const guilds = [
-    {
-      id: "1",
-      name: "Mateus",
-      icon: "image.png",
-      owner: true,
-    },
-  ];
+  const [guilds, setGuilds] = useState<GuildProps[]>([]);
+  const [loading, setLoading] = useState(true);
 
+  async function fetchGuilds() {
+    const response = await api.get("/users/@me/guilds");
+
+    setGuilds(response.data);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    fetchGuilds();
+  }, []);
   return (
     <View style={styles.container}>
-      <FlatList
-        data={guilds}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <Guild data={item} onPress={() => handleGuildSelected(item)} />
-        )}
-        showsVerticalScrollIndicator={false}
-        ItemSeparatorComponent={() => <ListDivider />}
-        style={styles.guilds}
-        contentContainerStyle={{ paddingBottom: 50, paddingTop: 50 }}
-        ListHeaderComponent={()=> <ListDivider/>}
-      />
+      {loading ? (
+        <Load />
+      ) : (
+        <FlatList
+          data={guilds}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Guild data={item} onPress={() => handleGuildSelected(item)} />
+          )}
+          showsVerticalScrollIndicator={false}
+          ItemSeparatorComponent={() => <ListDivider />}
+          style={styles.guilds}
+          contentContainerStyle={{ paddingBottom: 50, paddingTop: 50 }}
+          ListHeaderComponent={() => <ListDivider />}
+        />
+      )}
     </View>
   );
 };

@@ -10,11 +10,14 @@ import CalendarSvg from "../../assets/calendar.svg";
 
 import { theme } from "../../global/styles/theme";
 import { GuildProps } from "../Guild";
+import { LinearGradient } from "expo-linear-gradient";
 
 type Props = RectButtonProps & {
   data: AppointmentProps;
   onPress: (event: GestureResponderEvent) => void;
 };
+
+
 
 
 
@@ -32,9 +35,16 @@ const Appointment = ({ data, onPress }: Props) => {
   const [category] = categories.filter((item) => item.id === data.category);
 
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.8}  onPress={onPress}>
+    <TouchableOpacity
+      style={styles.container}
+      activeOpacity={0.8}
+      onPress={onPress}
+    >
       <View style={styles.container}>
-        <GuildIcon />
+        <LinearGradient style={styles.guildIconContainer}
+        colors={[theme.colors.secondary50, theme.colors.secondary30]}>
+          <GuildIcon />
+        </LinearGradient>
         <View style={styles.content}>
           <View style={styles.header}>
             <Text style={styles.title}>{data.guild.name}</Text>

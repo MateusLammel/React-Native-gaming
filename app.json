@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "gaming",
+    "scheme": "gaming",
     "slug": "gaming",
     "version": "1.0.0",
     "orientation": "portrait",

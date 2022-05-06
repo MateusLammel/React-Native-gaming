@@ -12,6 +12,8 @@ import React from "react";
 import Background from "../../components/Background";
 import Header from "../../components/Header";
 import { theme } from "../../global/styles/theme";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import uuid from "react-native-uuid";
 
 import { styles } from "./styles";
 import CategorySelect from "../../components/CategorySelect";
@@ -23,25 +25,56 @@ import ModalView from "../../components/ModalView";
 import Guilds from "../Guilds";
 import { GuildProps } from "../../components/Guild";
 import GuildIcon from "../../components/GuildIcon";
+import { COLLECTION_APPOINTMENTS } from "../../configs/database";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 
 const AppointmentCreate = () => {
   const [category, setCategory] = React.useState("");
   const [openGuildsModal, setOpenGuildsModal] = React.useState<boolean>(false);
   const [guild, setGuild] = React.useState<GuildProps>({} as GuildProps);
-
+  const [day, setDay] = React.useState("");
+  const [month, setMonth] = React.useState("");
+  const [hour, setHour] = React.useState("");
+  const [minute, setMinute] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const navigation = useNavigation();
   function handleOpenGuilds() {
     setOpenGuildsModal(true);
   }
 
-   function handleCloseGuilds() {
-     setOpenGuildsModal(false);
-   }
+  function handleCloseGuilds() {
+    setOpenGuildsModal(false);
+  }
 
   function handleGuildSelect(guildSelect: GuildProps) {
     setGuild(guildSelect);
     setOpenGuildsModal(false);
   }
 
+  function handleCategorySelect(categoryId: string) {
+    setCategory(categoryId);
+  }
+  async function handleSave() {
+    const newAppointment = {
+      id: uuid.v4(),
+      guild,
+      category,
+      date: `${day}/${month} às ${hour}:${minute}h`,
+      description,
+    };
+
+    const storage = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
+    const appointments = storage ? JSON.parse(storage) : [];
+
+    await AsyncStorage.setItem(
+      COLLECTION_APPOINTMENTS,
+      JSON.stringify([...appointments, newAppointment])
+    );
+
+     navigation.dispatch(
+       CommonActions.navigate({ name: "Home" })
+     );
+  }
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -62,7 +95,7 @@ const AppointmentCreate = () => {
 
           <CategorySelect
             hasCheckBox
-            setCategory={setCategory}
+            setCategory={handleCategorySelect}
             categorySelected={category}
           />
 
@@ -105,9 +138,7 @@ const AppointmentCreate = () => {
             </View>
 
             <View style={[styles.field, { marginBottom: 12 }]}>
-              <Text style={styles.label}>
-                Descrição
-              </Text>
+              <Text style={styles.label}>Descrição</Text>
               <Text style={styles.caracteresLimit}>Max de 100 caracteres</Text>
             </View>
             <TextArea

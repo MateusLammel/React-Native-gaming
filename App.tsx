@@ -10,7 +10,7 @@ import {
 import { StatusBar } from "react-native";
 import Routes from "./src/routes";
 import Background from "./src/components/Background";
-
+import { AuthProvider } from "./src/hooks/auth";
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -30,7 +30,9 @@ const App = () => {
           backgroundColor="transparent"
           translucent
         />
-        <Routes />
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </Background>
     );
   }
