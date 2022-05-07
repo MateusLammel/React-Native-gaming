@@ -55,16 +55,14 @@ function AuthProvider({ children }: AuthProviderProps) {
     try {
       setLoading(true);
 
-      const authUrl = `${api.defaults.baseURL}/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
+      const authUrl = `https://discord.com/api/oauth2/authorize?client_id=971812480219218020&redirect_uri=https%3A%2F%2Fauth.expo.io%2F%40anonymous%2Fgaming-8a8b7206-d583-4da5-b462-4317e8bd2f70&response_type=code&scope=identify%20email%20connections%20guilds`;
 
       const { type, params } = (await AuthSession.startAsync({
         authUrl,
       })) as AuthorizationResponse;
 
       if (type === "success" && !params.error) {
-        api.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${params.access_token}`;
+        api.defaults.headers.authorization = `Bearer ${params.access_token}`;
 
         const userInfo = await api.get("/users/@me");
 
